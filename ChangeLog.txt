@@ -1,0 +1,13 @@
+Change log - Gabriel Heleno
+
+1 - Program.cs: Switch case statement replaced by a simple "if" and "else";
+2 - Program.cs: removed Setup() method;
+3 - Program.cs: Refactored file to break line after bracket;
+4 - Program.cs: removed default harcoded character stats;
+5 - Character.cs: Define character stats with random values between ranges in the constructor;
+6 - Character.cs: variables first letters refactored to small caps;
+7 - Character.cs: created array of predefined names;
+8 - Character.cs: constructor now receives a boolean if is enemy or player;
+9 - Character.cs: constructor now create a name for the Character and use this in place of playerIndex;
+9 - Character.cs: variable playerIndex removed;
+9 - Grid.cs: added newBox variable to the grids list;
