@@ -1,0 +1,40 @@
+{
+    "classes": [
+        {
+            "name": "Paladin",
+            "minHealth": 100,
+            "maxHealth": 120,
+            "minDamageMultiplier": 1,
+            "maxDamageMultiplier": 2,
+            "baseDamage": 10,
+            "range": 1
+        },
+        {
+            "name": "Warrior",
+            "minHealth": 80,
+            "maxHealth": 100,
+            "minDamageMultiplier": 1,
+            "maxDamageMultiplier": 2,
+            "baseDamage": 15,
+            "range": 1
+        },
+        {
+            "name": "Cleric",
+            "minHealth": 80,
+            "maxHealth": 100,
+            "minDamageMultiplier": 1,
+            "maxDamageMultiplier": 2,
+            "baseDamage": 5,
+            "range": 2
+        },
+        {
+            "name": "Archer",
+            "minHealth": 50,
+            "maxHealth": 80,
+            "minDamageMultiplier": 1,
+            "maxDamageMultiplier": 2,
+            "baseDamage": 10,
+            "range": 3
+        }
+    ]
+}

@@ -12,6 +12,14 @@ Change log - Gabriel Heleno
 4 - Program.cs: PlayerCharacter refactored to first letter have small caps;
 4 - Program.cs: EnemyCharacter refactored to first letter have small caps;
 4 - Program.cs: AllPlayers refactored to first letter have small caps;
+4 - Program.cs: GridBox PlayerCurrentLocation changed to a already defined variable playerCurrentLocation;
+4 - Program.cs: "CharacterClass playerCharacterClass" changed to "CharacterClass[] classes" and then read json file to populate the array ;
+4 - Program.cs: changed the prompt to choose class from json files ;
+4 - Program.cs: changed player and enemy classes to the new CharacterClasses class instead of enum CharacterClass;
+4 - Program.cs: handleTurn now check if health is <= 0 instead of == 0;
+4 - Program.cs: in the start turn, player order is now random;
+4 - Program.cs: removed GetRandomInt() method, as it is unused;
+4 - Program.cs: Improved AllocatePlayer() method to no just call only one method;
 
 5 - Character.cs: Define character stats with random values between ranges in the constructor;
 6 - Character.cs: variables first letters refactored to small caps;
@@ -21,11 +29,26 @@ Change log - Gabriel Heleno
 9 - Character.cs: variable playerIndex removed;
 9 - Character.cs: variable isEnemy added;
 9 - Character.cs: changed to use new variable character instead of ocupied;
+9 - Character.cs: changed constructor to receive the new CharacterClasses class instead of enum CharacterClass;
+9 - Character.cs: In StartTurn() method there was return in the wrong place, fixed;
+9 - Character.cs: In CheckCloseTargets() method, it was removed and aditional useless return true;
+9 - Character.cs: In CheckCloseTargets() method, it was edited to use character instead of ocupied;
+9 - Character.cs: Added texts to show character life in console;
+9 - Character.cs: A character can attack only if it has health > 0;
+9 - Character.cs: in TakeDamage() method, health reduction is calculated before the if statement;
+9 - Character.cs: Implemented Died() method;
+9 - Character.cs: when check if target yIndex > current yIndex, the battlefield was drawn before updating, error fixed;
 
 9 - Grid.cs: added newBox variable to the grids list;
 9 - Grid.cs: grid now differentiate if is enemy or player;;
 
 9 - Types.cs: variable ocupied(bool) changed to character(Character);
 9 - Types.cs: Index variable refactored to first letter have small caps;
+9 - Types.cs: removed CharacterClass struct;
+9 - Types.cs: removed CharacterSkills struct;
+9 - Types.cs: removed CharacterClassSpecific struct;
+
+10 - CharacterClasses.cs: File created;
+10 - Classes.json: File created;
 
 

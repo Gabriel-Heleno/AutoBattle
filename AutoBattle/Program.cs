@@ -4,12 +4,16 @@ using static AutoBattle.Grid;
 using System.Collections.Generic;
 using System.Linq;
 using static AutoBattle.Types;
+using System.IO;
+using System.Text.Json;
+using System.Reflection;
 
 namespace AutoBattle {
     class Program {
         static void Main(string[] args) {
             Grid grid = new Grid(5, 5);
-            CharacterClass playerCharacterClass;
+            List<CharacterClasses> classes;
+            PopulateClassesArray();
             GridBox playerCurrentLocation;
             GridBox enemyCurrentLocation;
             Character playerCharacter;
@@ -22,7 +26,13 @@ namespace AutoBattle {
             void GetPlayerChoice() {
                 //asks for the player to choose between for possible classes via console.
                 Console.WriteLine("Choose Between One of this Classes:\n");
-                Console.WriteLine("[1] Paladin, [2] Warrior, [3] Cleric, [4] Archer");
+                string classesOptions = "";
+                int count = 0;
+                foreach(CharacterClasses charClass in classes) {
+                    classesOptions += "[" + count + "] " + charClass.name;
+                    count++;
+                }
+                Console.WriteLine(classesOptions);
                 //store the player choice in a variable
                 string choice = Console.ReadLine();
 
@@ -36,8 +46,8 @@ namespace AutoBattle {
 
             void CreatePlayerCharacter(int classIndex) {
 
-                CharacterClass characterClass = (CharacterClass)classIndex;
-                Console.WriteLine($"Player Class Choice: {characterClass}");
+                CharacterClasses characterClass = classes[classIndex];
+                Console.WriteLine($"Player Class Choice: {characterClass.name}");
                 playerCharacter = new Character(characterClass, false);
 
                 CreateEnemyCharacter();
@@ -48,8 +58,8 @@ namespace AutoBattle {
                 //randomly choose the enemy class and set up vital variables
                 var rand = new Random();
                 int randomInteger = rand.Next(1, 4);
-                CharacterClass enemyClass = (CharacterClass)randomInteger;
-                Console.WriteLine($"Enemy Class Choice: {enemyClass}");
+                CharacterClasses enemyClass = classes[randomInteger];
+                Console.WriteLine($"Enemy Class Choice: {enemyClass.name}");
                 enemyCharacter = new Character(enemyClass, true);
                 StartGame();
 
@@ -69,7 +79,9 @@ namespace AutoBattle {
             void StartTurn() {
 
                 if (currentTurn == 0) {
-                    //AllPlayers.Sort();  
+                    //sort players in an random order
+                    var rand = new Random();
+                    allPlayers = allPlayers.OrderBy(a => rand.Next()).ToList();
                 }
 
                 foreach (Character character in allPlayers) {
@@ -81,13 +93,16 @@ namespace AutoBattle {
             }
 
             void HandleTurn() {
-                if (playerCharacter.health == 0) {
-                    return;
-                } else if (enemyCharacter.health == 0) {
+                if (playerCharacter.health <= 0) {
+                    Console.Write(Environment.NewLine + Environment.NewLine);
+                    Console.Write("\"Hahahah, loser!\" - Evil Lord");
                     Console.Write(Environment.NewLine + Environment.NewLine);
 
-                    // endgame?
-
+                    return;
+                } else if (enemyCharacter.health <= 0) {
+                    // endgame
+                    Console.Write(Environment.NewLine + Environment.NewLine);
+                    Console.Write("Congrats, you win!");
                     Console.Write(Environment.NewLine + Environment.NewLine);
 
                     return;
@@ -101,15 +116,10 @@ namespace AutoBattle {
                 }
             }
 
-            int GetRandomInt(int min, int max) {
-                var rand = new Random();
-                int index = rand.Next(min, max);
-                return index;
-            }
-
             void AlocatePlayers() {
                 AlocatePlayerCharacter();
-
+                AlocateEnemyCharacter();
+                grid.drawBattlefield(5, 5);
             }
 
             void AlocatePlayerCharacter() {
@@ -118,11 +128,11 @@ namespace AutoBattle {
                 GridBox randomLocation = (grid.grids.ElementAt(random));
                 Console.Write($"{random}\n");
                 if (randomLocation.character == null) {
-                    GridBox PlayerCurrentLocation = randomLocation;
+                    playerCurrentLocation = randomLocation;
                     randomLocation.character = playerCharacter;
                     grid.grids[random] = randomLocation;
                     playerCharacter.currentBox = grid.grids[random];
-                    AlocateEnemyCharacter();
+                    //AlocateEnemyCharacter();
                 } else {
                     AlocatePlayerCharacter();
                 }
@@ -138,12 +148,21 @@ namespace AutoBattle {
                     randomLocation.character = enemyCharacter;
                     grid.grids[random] = randomLocation;
                     enemyCharacter.currentBox = grid.grids[random];
-                    grid.drawBattlefield(5, 5);
                 } else {
                     AlocateEnemyCharacter();
                 }
 
 
+            }
+            void PopulateClassesArray() {
+                string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, @"classes.json");
+                using (StreamReader reader = new StreamReader(path)) {
+                    String json = reader.ReadToEnd();
+                    json = json.Replace(@"\r\n","");
+
+                    CharacterClassesArray classesArray = JsonSerializer.Deserialize < CharacterClassesArray >(json);
+                    classes = classesArray.classes;
+                }
             }
 
         }
