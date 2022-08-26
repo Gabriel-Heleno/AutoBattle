@@ -4,10 +4,28 @@ Change log - Gabriel Heleno
 2 - Program.cs: removed Setup() method;
 3 - Program.cs: Refactored file to break line after bracket;
 4 - Program.cs: removed default harcoded character stats;
+4 - Program.cs: fixed random location on AlocatePlayerCharacter() method;
+4 - Program.cs: fixed random location on AlocateEnemyCharacter() method;
+4 - Program.cs: RandomLocation refactored to first letter have small caps;
+4 - Program.cs: PlayerCurrentLocation refactored to first letter have small caps;
+4 - Program.cs: EnemyCurrentLocation refactored to first letter have small caps;
+4 - Program.cs: PlayerCharacter refactored to first letter have small caps;
+4 - Program.cs: EnemyCharacter refactored to first letter have small caps;
+4 - Program.cs: AllPlayers refactored to first letter have small caps;
+
 5 - Character.cs: Define character stats with random values between ranges in the constructor;
 6 - Character.cs: variables first letters refactored to small caps;
 7 - Character.cs: created array of predefined names;
 8 - Character.cs: constructor now receives a boolean if is enemy or player;
 9 - Character.cs: constructor now create a name for the Character and use this in place of playerIndex;
 9 - Character.cs: variable playerIndex removed;
+9 - Character.cs: variable isEnemy added;
+9 - Character.cs: changed to use new variable character instead of ocupied;
+
 9 - Grid.cs: added newBox variable to the grids list;
+9 - Grid.cs: grid now differentiate if is enemy or player;;
+
+9 - Types.cs: variable ocupied(bool) changed to character(Character);
+9 - Types.cs: Index variable refactored to first letter have small caps;
+
+

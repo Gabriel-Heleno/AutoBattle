@@ -21,9 +21,9 @@ namespace AutoBattle
                     //grids.Add(newBox);
                 for(int j = 0; j < Columns; j++)
                 {
-                    GridBox newBox = new GridBox(j, i, false, (Columns * i + j));
+                    GridBox newBox = new GridBox(j, i, (Columns * i + j));
                     grids.Add(newBox);
-                    Console.Write($"{newBox.Index}\n");
+                    Console.Write($"{newBox.index}\n");
                 }
             }
         }
@@ -36,10 +36,10 @@ namespace AutoBattle
                 for (int j = 0; j < Columns; j++)
                 {
                     GridBox currentgrid = grids[Columns * i + j];
-                    if (currentgrid.ocupied)
+                    if (currentgrid.character != null)
                     {
-                        //if()
-                        Console.Write("[X]\t");
+                        string character = (currentgrid.character.isEnemy) ? "X" : "0";
+                        Console.Write("[" + character + "]\t");
                     }
                     else
                     {
