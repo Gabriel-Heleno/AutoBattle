@@ -1,12 +1,9 @@
 ﻿using System;
-using static AutoBattle.Character;
-using static AutoBattle.Grid;
 using System.Collections.Generic;
 using System.Linq;
 using static AutoBattle.Types;
 using System.IO;
 using System.Text.Json;
-using System.Reflection;
 
 namespace AutoBattle {
     class Program {
